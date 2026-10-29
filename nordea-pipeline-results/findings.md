@@ -1,0 +1,21 @@
+# Findings
+
+- Returns: skew=-0.102, excess kurtosis=7.870, Jarque-Bera p=0.00e+00 (rejects normality)
+- close: ADF p=0.8690, KPSS p=0.0100 - non-stationary as expected
+- returns: ADF p=0.0000, KPSS p=0.1000 - stationary as expected
+- Engle ARCH-LM test: p=1.61e-42 - significant ARCH effects (volatility clustering present)
+- garch_vol vs realised_vol_30d correlation: 0.829
+- Largest disagreement at 2020-03-13: garch_vol=0.1304, realised_vol_30d=0.0763
+- Strongest GPRD-vs-returns correlation at lag -8 (-0.024)
+- Strongest GPRD-vs-|returns| correlation at lag 4 (-0.068)
+- Granger causality gprd->returns (lag 1): p=0.6762
+- Granger causality gprd->realised_vol_30d (lag 1): p=0.0890
+- Returns on high_gpr days: mean=0.00341 vs low_gpr: mean=0.00175, Welch t-test p=0.3283
+- Realised vol on high_gpr days: mean=0.03065 vs low_gpr: mean=0.03207, Welch t-test p=0.0269
+- Rolling 1yr GPRD/vol correlation ranges from -0.447 to 1.000 - stable relationship over time
+- Ljung-Box on SAS GARCH residuals (lag 10): p=0.0457 - autocorrelation remains
+- Ljung-Box on squared standardised residuals (lag 10): p=0.8995 - ARCH effects captured
+- Python baseline GARCH(1,1) omega=0.6080, alpha=0.1204, beta=0.8447, AIC=17498.1
+- ARX mean with gprd_lag: coefficient p-value=0.8028 - not significant effect on mean return
+- Two-step variance regression: log(GARCH variance) on gprd_lag, coefficient p-value=0.0367 (generated-regressor caveat applies - see the markdown note above)
+- Best model by out-of-sample QLIKE: GARCH-t
